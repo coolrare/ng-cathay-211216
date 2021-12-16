@@ -5,7 +5,7 @@ import { UtilitiesComponent } from './utilities.component';
 
 const routes: Routes = [
   { path: '', component: UtilitiesComponent },
-  { path: 'animation', component: AnimationComponent },
+  { path: 'animation/:type', component: AnimationComponent },
 ];
 
 @NgModule({
