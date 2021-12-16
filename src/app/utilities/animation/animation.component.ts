@@ -28,7 +28,10 @@ export class AnimationComponent implements OnInit {
   }
 
   plusOne() {
-    this.router.navigateByUrl('/utilities/animation/' + (this.type + 1))
+    this.router.navigate(['/utilities/animation', (this.type + 1)], {
+      queryParamsHandling: 'preserve',
+      // skipLocationChange: true,
+    });
   }
 
 }
