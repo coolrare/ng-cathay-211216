@@ -25,7 +25,7 @@ mForm.touched = {{ mForm.touched | json }}
 mForm.untouched = {{ mForm.untouched | json }}
 mForm.errors = {{ mForm.errors | json }}</pre>
                 <form class="user" #mForm="ngForm" (ngSubmit)="doSubmit(mForm)">
-                  <div class="form-group">
+                  <div class="form-group" ngModelGroup="group1" #mGroup1="ngModelGroup">
                     <input type="email" class="form-control form-control-user" id="exampleInputEmail"
                            aria-describedby="emailHelp" placeholder="Enter Email Address..."
                            [(ngModel)]="data.email" name="email" #mEmail="ngModel"
@@ -46,7 +46,7 @@ mEmail.touched = {{ mEmail.touched | json }}
 mEmail.untouched = {{ mEmail.untouched | json }}
 mEmail.errors = {{ mEmail.errors | json }}</pre>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group" ngModelGroup="group2" #mGroup2="ngModelGroup">
                     <input type="password" class="form-control form-control-user" id="exampleInputPassword"
                            placeholder="Password"
                            [(ngModel)]="data.password" name="password" #mPassword="ngModel"
