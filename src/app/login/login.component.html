@@ -29,7 +29,7 @@ mForm.errors = {{ mForm.errors | json }}</pre>
                     <input type="email" class="form-control form-control-user" id="exampleInputEmail"
                            aria-describedby="emailHelp" placeholder="Enter Email Address..."
                            [(ngModel)]="data.email" name="email" #mEmail="ngModel"
-                           required email minlength="5"
+                           [required]="mIsRemember.value" email minlength="5"
                            [class.is-valid]="mEmail.touched && mEmail.valid" [class.is-invalid]="mEmail.touched && mEmail.invalid">
                     <div class="invalid-feedback" *ngIf="(mEmail.touched && mEmail.invalid) && mEmail.errors?.['required']">請輸入使用者帳號 (E-mail)</div>
                     <div class="invalid-feedback" *ngIf="(mEmail.touched && mEmail.invalid) && mEmail.errors?.['email']">請輸入合法的 E-mail 地址</div>
@@ -50,7 +50,7 @@ mEmail.errors = {{ mEmail.errors | json }}</pre>
                     <input type="password" class="form-control form-control-user" id="exampleInputPassword"
                            placeholder="Password"
                            [(ngModel)]="data.password" name="password" #mPassword="ngModel"
-                           required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$"
+                           [required]="mIsRemember.value" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$"
                            [class.is-valid]="mPassword.valid" [class.is-invalid]="mPassword.invalid">
                     <div class="invalid-feedback" *ngIf="mPassword.invalid && mPassword.errors?.['required']">請輸入使用者密碼 (Password)</div>
                     <div class="invalid-feedback" *ngIf="mPassword.invalid && mPassword.errors?.['pattern']">請輸入合法的密碼格式 (至少各一個小寫英文、大寫英文、數字)</div>
@@ -60,6 +60,18 @@ mEmail.errors = {{ mEmail.errors | json }}</pre>
                       <input type="checkbox" class="custom-control-input" id="customCheck"
                         [(ngModel)]="data.isRemember" name="isRemember" #mIsRemember="ngModel">
                       <label class="custom-control-label" for="customCheck">Remember Me</label>
+
+<pre>mIsRemember.value = {{ mIsRemember.value | json }}
+mIsRemember.valid = {{ mIsRemember.valid | json }}
+mIsRemember.invalid = {{ mIsRemember.invalid | json }}
+mIsRemember.enabled = {{ mIsRemember.enabled | json }}
+mIsRemember.disabled = {{ mIsRemember.disabled | json }}
+mIsRemember.status = {{ mIsRemember.status | json }}
+mIsRemember.pristine = {{ mIsRemember.pristine | json }}
+mIsRemember.dirty = {{ mIsRemember.dirty | json }}
+mIsRemember.touched = {{ mIsRemember.touched | json }}
+mIsRemember.untouched = {{ mIsRemember.untouched | json }}
+mIsRemember.errors = {{ mIsRemember.errors | json }}</pre>
                     </div>
                   </div>
                   <button type="submit" [disabled]="mForm.invalid" class="btn btn-primary btn-user btn-block"> Login </button>
