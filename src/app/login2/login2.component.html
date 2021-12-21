@@ -12,15 +12,45 @@
                 <div class="text-center">
                   <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                 </div>
-                <form class="user" [formGroup]="form">
+                <pre>data = {{ data | json }}</pre>
+                <pre>form.value = {{ form.value | json }}
+form.valid = {{ form.valid | json }}
+form.invalid = {{ form.invalid | json }}
+form.enabled = {{ form.enabled | json }}
+form.disabled = {{ form.disabled | json }}
+form.status = {{ form.status | json }}
+form.pristine = {{ form.pristine | json }}
+form.dirty = {{ form.dirty | json }}
+form.touched = {{ form.touched | json }}
+form.untouched = {{ form.untouched | json }}
+form.errors = {{ form.errors | json }}</pre>
+                <form class="user" [formGroup]="form" #mForm="ngForm" (ngSubmit)="doSubmit()">
                   <div class="form-group">
                     <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                      [class.is-valid]="form.get('email')?.touched && form.get('email')?.valid" [class.is-invalid]="form.get('email')?.touched && form.get('email')?.invalid"
                            aria-describedby="emailHelp" placeholder="Enter Email Address..." formControlName="email">
-                  </div>
+                           <div class="invalid-feedback" *ngIf="(form.get('email')?.touched && form.get('email')?.invalid) && form.get('email')?.errors?.['required']">請輸入使用者帳號 (E-mail)</div>
+                           <div class="invalid-feedback" *ngIf="(form.get('email')?.touched && form.get('email')?.invalid) && form.get('email')?.errors?.['email']">請輸入合法的 E-mail 地址</div>
+                           <div class="invalid-feedback" *ngIf="(form.get('email')?.touched && form.get('email')?.invalid) && form.get('email')?.errors?.['minlength']">請輸入至少 {{form.get('email')?.errors?.['minlength'].requiredLength}} 個字元</div>
+<pre>form.get('email')?.value = {{ form.get('email')?.value | json }}
+form.get('email')?.valid = {{ form.get('email')?.valid | json }}
+form.get('email')?.invalid = {{ form.get('email')?.invalid | json }}
+form.get('email')?.enabled = {{ form.get('email')?.enabled | json }}
+form.get('email')?.disabled = {{ form.get('email')?.disabled | json }}
+form.get('email')?.status = {{ form.get('email')?.status | json }}
+form.get('email')?.pristine = {{ form.get('email')?.pristine | json }}
+form.get('email')?.dirty = {{ form.get('email')?.dirty | json }}
+form.get('email')?.touched = {{ form.get('email')?.touched | json }}
+form.get('email')?.untouched = {{ form.get('email')?.untouched | json }}
+form.get('email')?.errors = {{ form.get('email')?.errors | json }}</pre>
+                         </div>
                   <div class="form-group">
                     <input type="password" class="form-control form-control-user" id="exampleInputPassword"
+                           [class.is-valid]="form.get('password')?.valid" [class.is-invalid]="form.get('password')?.invalid"
                            placeholder="Password" formControlName="password">
-                  </div>
+                           <div class="invalid-feedback" *ngIf="form.get('password')?.invalid && form.get('password')?.errors?.['required']">請輸入使用者密碼 (Password)</div>
+                           <div class="invalid-feedback" *ngIf="form.get('password')?.invalid && form.get('password')?.errors?.['pattern']">請輸入合法的密碼格式 (至少各一個小寫英文、大寫英文、數字)</div>
+                         </div>
                   <div class="form-group">
                     <div class="custom-control custom-checkbox small">
                       <input type="checkbox" class="custom-control-input" id="customCheck" formControlName="isRemember">

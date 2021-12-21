@@ -29,7 +29,7 @@ export class Login2Component implements OnInit, OnDestroy {
 
     this.form = this.fb.group({
       email: this.fb.control('doggy.huang@gmail.com', {
-        validators: [Validators.required, Validators.email],
+        validators: [Validators.required, Validators.email, Validators.minLength(5)],
         updateOn: 'blur'
       }),
       password: this.fb.control('123123', {
@@ -44,6 +44,12 @@ export class Login2Component implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     document.body.className = '';
+  }
+
+  doSubmit() {
+    if (this.form.valid) {
+      console.log('送出表單', this.form.value);
+    }
   }
 
 }
