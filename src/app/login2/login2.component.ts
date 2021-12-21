@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginModel } from '../login/login.component';
 
@@ -12,15 +12,15 @@ export class Login2Component implements OnInit, OnDestroy {
   data: any = {
     "users": [
       {
-        "email": "doggy.huang@gmail.com",
+        "email": "doggy01@gmail.com",
         "password": "123sdfDSF"
       },
       {
-        "email": "will.huang@miniasp.com",
+        "email": "doggy03@gmail.com",
         "password": "f930u98rufdFD"
       },
       {
-        "email": "doggy.epaper@gmail.com",
+        "email": "doggy02@gmail.com",
         "password": "123jisdfFDF"
       }
     ],
@@ -29,7 +29,7 @@ export class Login2Component implements OnInit, OnDestroy {
 
   form: FormGroup = this.fb.group({});
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     document.body.className = 'bg-gradient-primary';
@@ -48,6 +48,7 @@ export class Login2Component implements OnInit, OnDestroy {
 
   addNewUser() {
     this.getFormArray('users').push(this.createUserForm());
+    this.changeDetectorRef.detectChanges();
   }
 
   createUserForm() {
