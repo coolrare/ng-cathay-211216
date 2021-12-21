@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginModel } from '../login/login.component';
@@ -8,10 +9,22 @@ import { LoginModel } from '../login/login.component';
 })
 export class Login2Component implements OnInit, OnDestroy {
 
-  data: LoginModel = {
-    email: '',
-    password: '',
-    isRemember: true
+  data: any = {
+    "users": [
+      {
+        "email": "doggy.huang@gmail.com",
+        "password": "123sdfDSF"
+      },
+      {
+        "email": "will.huang@miniasp.com",
+        "password": "f930u98rufdFD"
+      },
+      {
+        "email": "doggy.epaper@gmail.com",
+        "password": "123jisdfFDF"
+      }
+    ],
+    "isRemember": true
   };
 
   form: FormGroup = this.fb.group({});
@@ -26,8 +39,11 @@ export class Login2Component implements OnInit, OnDestroy {
       isRemember: this.fb.control(true)
     });
 
-    this.getFormArray('users').push(this.createUserForm());
+    this.data.users.forEach((user: any) => {
+      this.getFormArray('users').push(this.createUserForm());
+    });
 
+    this.form.setValue(this.data);
   }
 
   addNewUser() {
