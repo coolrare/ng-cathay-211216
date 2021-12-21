@@ -22,39 +22,31 @@ export class Login2Component implements OnInit, OnDestroy {
     document.body.className = 'bg-gradient-primary';
 
     this.form = this.fb.group({
-      users: this.fb.array([
-
-        this.fb.group({
-
-          email: this.fb.control('doggy.huang@gmail.com', {
-            validators: [Validators.required, Validators.email, Validators.minLength(5)],
-            updateOn: 'blur'
-          }),
-          password: this.fb.control('123123', {
-            validators: [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/)],
-            updateOn: 'blur'
-          })
-
-        }),
-
-        this.fb.group({
-
-          email: this.fb.control('doggy.huang@gmail.com', {
-            validators: [Validators.required, Validators.email, Validators.minLength(5)],
-            updateOn: 'blur'
-          }),
-          password: this.fb.control('123123', {
-            validators: [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/)],
-            updateOn: 'blur'
-          })
-
-        })
-
-      ]),
+      users: this.fb.array([]),
       isRemember: this.fb.control(true)
     });
 
+    this.getFormArray('users').push(this.createUserForm());
 
+  }
+
+  addNewUser() {
+    this.getFormArray('users').push(this.createUserForm());
+  }
+
+  createUserForm() {
+    return this.fb.group({
+
+      email: this.fb.control('', {
+        validators: [Validators.required, Validators.email, Validators.minLength(5)],
+        updateOn: 'blur'
+      }),
+      password: this.fb.control('', {
+        validators: [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/)],
+        updateOn: 'blur'
+      })
+
+    });
   }
 
   ngOnDestroy(): void {
