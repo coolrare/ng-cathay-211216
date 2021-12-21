@@ -43,7 +43,10 @@ export class Login2Component implements OnInit, OnDestroy {
       this.getFormArray('users').push(this.createUserForm());
     });
 
-    this.form.setValue(this.data);
+    // this.getFormArray('users').setValidators([]);
+    // this.getFormArray('users').updateValueAndValidity();
+
+    this.form.reset(this.data);
   }
 
   addNewUser() {
