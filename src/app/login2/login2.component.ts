@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { LoginModel } from '../login/login.component';
 
 @Component({
@@ -58,7 +58,7 @@ export class Login2Component implements OnInit, OnDestroy {
     return this.fb.group({
 
       email: this.fb.control('', {
-        validators: [Validators.required, Validators.email, Validators.minLength(5)],
+        validators: [Validators.required, Validators.email, Validators.minLength(5), emailDomainValidator('@cathaybk.com.tw')],
         updateOn: 'blur'
       }),
       password: this.fb.control('', {
@@ -89,4 +89,15 @@ export class Login2Component implements OnInit, OnDestroy {
     return this.form.get(name) as FormArray;
   }
 
+}
+
+
+function emailDomainValidator(domain: string) {
+  return (control: AbstractControl) => {
+    if (control.value.indexOf(domain) > -1) {
+      return { emailDomain: true };
+    } else {
+      return null;
+    }
+  }
 }
