@@ -26,34 +26,47 @@ form.untouched = {{ form.untouched | json }}
 form.errors = {{ form.errors | json }}</pre>
                 <form class="user" [formGroup]="form" #mForm="ngForm" (ngSubmit)="doSubmit()">
 
+                  <ng-container formArrayName="users">
 
-                  <div class="form-group">
-                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                           [class.is-valid]="form.get('email')?.touched && form.get('email')?.valid"
-                           [class.is-invalid]="form.get('email')?.touched && form.get('email')?.invalid"
-                           aria-describedby="emailHelp" placeholder="Enter Email Address..." formControlName="email">
-                    <div class="invalid-feedback"
-                         *ngIf="(form.get('email')?.touched && form.get('email')?.invalid) && form.get('email')?.errors?.['required']">
-                      請輸入使用者帳號 (E-mail)</div>
-                    <div class="invalid-feedback"
-                         *ngIf="(form.get('email')?.touched && form.get('email')?.invalid) && form.get('email')?.errors?.['email']">
-                      請輸入合法的 E-mail 地址</div>
-                    <div class="invalid-feedback"
-                         *ngIf="(form.get('email')?.touched && form.get('email')?.invalid) && form.get('email')?.errors?.['minlength']">
-                      請輸入至少 {{form.get('email')?.errors?.['minlength'].requiredLength}} 個字元</div>
-                  </div>
-                  <div class="form-group">
-                    <input type="password" class="form-control form-control-user" id="exampleInputPassword"
-                           [class.is-valid]="form.get('password')?.valid"
-                           [class.is-invalid]="form.get('password')?.invalid" placeholder="Password"
-                           formControlName="password">
-                    <div class="invalid-feedback"
-                         *ngIf="form.get('password')?.invalid && form.get('password')?.errors?.['required']">請輸入使用者密碼
-                      (Password)</div>
-                    <div class="invalid-feedback"
-                         *ngIf="form.get('password')?.invalid && form.get('password')?.errors?.['pattern']">請輸入合法的密碼格式
-                      (至少各一個小寫英文、大寫英文、數字)</div>
-                  </div>
+                    <ng-container *ngFor="let group of getFormArray('users').controls; let i=index"
+                      [formGroupName]="i">
+                      <div class="form-group">
+                        <h2>User {{i}}</h2>
+                      </div>
+
+                      <div class="form-group">
+                        <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                              [class.is-valid]="group.get('email')?.touched && group.get('email')?.valid"
+                              [class.is-invalid]="group.get('email')?.touched && group.get('email')?.invalid"
+                              aria-describedby="emailHelp" placeholder="Enter Email Address..." formControlName="email">
+                        <div class="invalid-feedback"
+                            *ngIf="(group.get('email')?.touched && group.get('email')?.invalid) && group.get('email')?.errors?.['required']">
+                          請輸入使用者帳號 (E-mail)</div>
+                        <div class="invalid-feedback"
+                            *ngIf="(group.get('email')?.touched && group.get('email')?.invalid) && group.get('email')?.errors?.['email']">
+                          請輸入合法的 E-mail 地址</div>
+                        <div class="invalid-feedback"
+                            *ngIf="(group.get('email')?.touched && group.get('email')?.invalid) && group.get('email')?.errors?.['minlength']">
+                          請輸入至少 {{group.get('email')?.errors?.['minlength'].requiredLength}} 個字元</div>
+                      </div>
+                      <div class="form-group">
+                        <input type="password" class="form-control form-control-user" id="exampleInputPassword"
+                              [class.is-valid]="group.get('password')?.valid"
+                              [class.is-invalid]="group.get('password')?.invalid" placeholder="Password"
+                              formControlName="password">
+                        <div class="invalid-feedback"
+                            *ngIf="group.get('password')?.invalid && group.get('password')?.errors?.['required']">請輸入使用者密碼
+                          (Password)</div>
+                        <div class="invalid-feedback"
+                            *ngIf="group.get('password')?.invalid && group.get('password')?.errors?.['pattern']">請輸入合法的密碼格式
+                          (至少各一個小寫英文、大寫英文、數字)</div>
+                      </div>
+
+                    </ng-container>
+
+
+                  </ng-container>
+
 
 
                   <div class="form-group">

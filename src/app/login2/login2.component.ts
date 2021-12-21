@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginModel } from '../login/login.component';
 
 @Component({
@@ -14,28 +14,43 @@ export class Login2Component implements OnInit, OnDestroy {
     isRemember: true
   };
 
-  form: FormGroup = this.fb.group(this.data);
+  form: FormGroup = this.fb.group({});
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     document.body.className = 'bg-gradient-primary';
 
-    // this.form = this.fb.group({
-    //   email: ['', [Validators.required, Validators.email]],
-    //   password: ['', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/)]],
-    //   isRemember: true
-    // });
-
     this.form = this.fb.group({
-      email: this.fb.control('doggy.huang@gmail.com', {
-        validators: [Validators.required, Validators.email, Validators.minLength(5)],
-        updateOn: 'blur'
-      }),
-      password: this.fb.control('123123', {
-        validators: [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/)],
-        updateOn: 'blur'
-      }),
+      users: this.fb.array([
+
+        this.fb.group({
+
+          email: this.fb.control('doggy.huang@gmail.com', {
+            validators: [Validators.required, Validators.email, Validators.minLength(5)],
+            updateOn: 'blur'
+          }),
+          password: this.fb.control('123123', {
+            validators: [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/)],
+            updateOn: 'blur'
+          })
+
+        }),
+
+        this.fb.group({
+
+          email: this.fb.control('doggy.huang@gmail.com', {
+            validators: [Validators.required, Validators.email, Validators.minLength(5)],
+            updateOn: 'blur'
+          }),
+          password: this.fb.control('123123', {
+            validators: [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/)],
+            updateOn: 'blur'
+          })
+
+        })
+
+      ]),
       isRemember: this.fb.control(true)
     });
 
@@ -50,6 +65,16 @@ export class Login2Component implements OnInit, OnDestroy {
     if (this.form.valid) {
       console.log('送出表單', this.form.value);
     }
+  }
+
+  getFormControl(name: string) {
+    return this.form.get(name) as FormControl;
+  }
+  getFormGroup(name: string) {
+    return this.form.get(name) as FormGroup;
+  }
+  getFormArray(name: string) {
+    return this.form.get(name) as FormArray;
   }
 
 }
