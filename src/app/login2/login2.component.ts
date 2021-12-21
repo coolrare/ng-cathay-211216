@@ -94,6 +94,9 @@ export class Login2Component implements OnInit, OnDestroy {
 
 function emailDomainValidator(domain: string) {
   return (control: AbstractControl) => {
+    if (!control.value) {
+      return null;
+    }
     if (control.value.indexOf(domain) > -1) {
       return { emailDomain: true };
     } else {

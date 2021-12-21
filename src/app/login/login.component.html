@@ -29,7 +29,7 @@ mForm.errors = {{ mForm.errors | json }}</pre>
                     <input type="email" class="form-control form-control-user" id="exampleInputEmail"
                            aria-describedby="emailHelp" placeholder="Enter Email Address..."
                            [(ngModel)]="data.email" name="email" #mEmail="ngModel"
-                           [required]="mIsRemember.value" email minlength="5"
+                           [required]="mIsRemember.value" email minlength="5" email-domain
                            [class.is-valid]="mEmail.touched && mEmail.valid" [class.is-invalid]="mEmail.touched && mEmail.invalid">
                     <div class="invalid-feedback" *ngIf="(mEmail.touched && mEmail.invalid) && mEmail.errors?.['required']">請輸入使用者帳號 (E-mail)</div>
                     <div class="invalid-feedback" *ngIf="(mEmail.touched && mEmail.invalid) && mEmail.errors?.['email']">請輸入合法的 E-mail 地址</div>
