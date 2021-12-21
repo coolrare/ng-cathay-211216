@@ -21,10 +21,22 @@ export class Login2Component implements OnInit, OnDestroy {
   ngOnInit(): void {
     document.body.className = 'bg-gradient-primary';
 
+    // this.form = this.fb.group({
+    //   email: ['', [Validators.required, Validators.email]],
+    //   password: ['', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/)]],
+    //   isRemember: true
+    // });
+
     this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/)]],
-      isRemember: true
+      email: this.fb.control('doggy.huang@gmail.com', {
+        validators: [Validators.required, Validators.email],
+        updateOn: 'blur'
+      }),
+      password: this.fb.control('123123', {
+        validators: [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/)],
+        updateOn: 'blur'
+      }),
+      isRemember: this.fb.control(true)
     });
 
 
